@@ -9,13 +9,13 @@ import (
 
 type Poller struct {
 	interval time.Duration
-	runner   domain.Runner
+	doer     domain.Doer
 }
 
-func New(interval time.Duration, runner domain.Runner) *Poller {
+func New(interval time.Duration, doer domain.Doer) *Poller {
 	return &Poller{
 		interval: interval,
-		runner:   runner,
+		doer:     doer,
 	}
 }
 
@@ -25,8 +25,7 @@ func (p *Poller) Poll(ctx context.Context) {
 	for {
 		select {
 		case <-ticker.C:
-			//fmt.Println(time.Now())
-			p.runner.Run(ctx)
+			p.doer.Do(ctx)
 		case <-ctx.Done():
 			ticker.Stop()
 			return

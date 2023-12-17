@@ -6,18 +6,18 @@ import (
 	"time"
 )
 
-type mockRunner struct {
+type mockDoer struct {
 	count int
 }
 
-func (r *mockRunner) Run(context.Context) {
+func (r *mockDoer) Do(context.Context) {
 	r.count++
 }
 
 func TestPoll(t *testing.T) {
 	t.Parallel()
 
-	r := &mockRunner{}
+	r := &mockDoer{}
 	poller := New(16*time.Millisecond, r)
 
 	ctx, cancel := context.WithTimeout(context.Background(), 64*time.Millisecond)
