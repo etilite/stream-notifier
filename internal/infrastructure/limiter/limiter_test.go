@@ -21,20 +21,20 @@ func TestLimiter_Limit(t *testing.T) {
 		},
 	}
 
-	for name, tc := range tests {
-		tc := tc
+	for name, tt := range tests {
+		tt := tt
 		t.Run(name, func(t *testing.T) {
 			t.Parallel()
 
-			requests := make(chan int, tc.limit)
-			for i := 0; i < tc.limit; i++ {
+			requests := make(chan int, tt.limit)
+			for i := 0; i < tt.limit; i++ {
 				requests <- i
 			}
 			close(requests)
 
 			l := Limiter[int]{
-				limit:    tc.limit,
-				duration: tc.duration,
+				limit:    tt.limit,
+				duration: tt.duration,
 			}
 			limitedRequests := l.Limit(requests)
 
@@ -46,13 +46,11 @@ func TestLimiter_Limit(t *testing.T) {
 			end := time.Now()
 			elapsedTime := end.Sub(start)
 
-			//fmt.Println(elapsedTime, len(results))
-
-			if elapsedTime < tc.duration {
+			if elapsedTime < tt.duration {
 				t.Errorf(
 					"error: limit bypassed, want %d requests in %v, got %d requests in %v",
-					tc.limit,
-					tc.duration,
+					tt.limit,
+					tt.duration,
 					len(results),
 					elapsedTime,
 				)
