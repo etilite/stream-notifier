@@ -1,8 +1,9 @@
-package domain
+package dto
 
 type CheckResultDTO struct {
 	id         string
 	name       string
+	streamUrl  string
 	previewUrl string
 	category   string
 	title      string
@@ -12,6 +13,7 @@ type CheckResultDTO struct {
 func NewCheckResult(
 	id string,
 	name string,
+	streamUrl string,
 	previewUrl string,
 	category string,
 	title string,
@@ -20,6 +22,7 @@ func NewCheckResult(
 	return CheckResultDTO{
 		id:         id,
 		name:       name,
+		streamUrl:  streamUrl,
 		previewUrl: previewUrl,
 		category:   category,
 		title:      title,
@@ -33,6 +36,10 @@ func (cr CheckResultDTO) ID() string {
 
 func (cr CheckResultDTO) Name() string {
 	return cr.name
+}
+
+func (cr CheckResultDTO) StreamUrl() string {
+	return cr.streamUrl
 }
 
 func (cr CheckResultDTO) PreviewUrl() string {
