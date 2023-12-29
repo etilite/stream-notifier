@@ -32,10 +32,7 @@ func TestLimiter_Limit(t *testing.T) {
 			}
 			close(requests)
 
-			l := Limiter[int]{
-				limit:    tt.limit,
-				duration: tt.duration,
-			}
+			l := New[int](tt.limit, tt.duration)
 			limitedRequests := l.Limit(requests)
 
 			var results []int
