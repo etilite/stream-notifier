@@ -25,7 +25,7 @@ func TestPoll(t *testing.T) {
 
 	poller.Poll(ctx)
 
-	if r.count != 4 {
-		t.Errorf("count of polls during period mismatch, want %d, got %d", 3, r.count)
+	if r.count != 5 {
+		t.Errorf("count of polls during period mismatch, want %d, got %d", 5, r.count)
 	}
 }

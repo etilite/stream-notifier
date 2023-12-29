@@ -22,6 +22,8 @@ func New(interval time.Duration, doer domain.Doer) *Poller {
 func (p *Poller) Poll(ctx context.Context) {
 	ticker := time.NewTicker(p.interval)
 
+	p.doer.Do(ctx)
+
 	for {
 		select {
 		case <-ticker.C:
